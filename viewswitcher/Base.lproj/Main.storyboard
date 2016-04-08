@@ -16,7 +16,24 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4WW-TH-qZx">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem title="Switch Views" id="EiP-xg-bkH">
+                                        <connections>
+                                            <action selector="switchViews:" destination="BYZ-38-t0r" id="tMT-yd-Qka"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="4WW-TH-qZx" secondAttribute="trailing" id="Cra-ki-zX6"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="4WW-TH-qZx" secondAttribute="bottom" id="ILi-3l-kRB"/>
+                            <constraint firstItem="4WW-TH-qZx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="lrR-8d-ere"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

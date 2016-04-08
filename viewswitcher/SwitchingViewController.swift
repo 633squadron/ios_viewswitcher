@@ -15,6 +15,10 @@ class SwitchingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        blueViewController = storyboard?.instantiateViewControllerWithIdentifier("Blue") as! BlueViewController
+        blueViewController.view.frame = view.frame
+        switchViewController(from: nil, to: blueViewController)
+        
 
         // Do any additional setup after loading the view.
     }
@@ -22,6 +26,12 @@ class SwitchingViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        if blueViewController != nil && blueViewController!.view.superview == nil {
+            blueViewController = nil
+        }
+        if yellowViewController != nil && yellowViewController!.view.superview == nil {
+            yellowViewController = nil
+        }
     }
     
 
@@ -35,7 +45,52 @@ class SwitchingViewController: UIViewController {
     }
     */
     
-    @IBAction switchViews(sender: UIBarButtonItem) {
+    @IBAction func switchViews(sender: UIBarButtonItem) {
+        // Create the yellow view controller if needed
+        if yellowViewController?.view.superview == nil {
+            if yellowViewController == nil {
+                if yellowViewController == nil {
+                    yellowViewController = storyboard?.instantiateViewControllerWithIdentifier("Yellow") as! YellowViewController
+                }
+            }
+        } else if blueViewController?.view.superview == nil {
+            if blueViewController == nil {
+                blueViewController = storyboard?.instantiateViewControllerWithIdentifier("Blue") as! BlueViewController
+            }
+        }
+        
+        // Switch the controllers
+        if blueViewController != nil && blueViewController!.view.superview != nil {
+            yellowViewController.view.frame = view.frame
+            switchViewController(from: blueViewController, to: yellowViewController)
+        } else {
+            blueViewController.view.frame = view.frame
+            switchViewController(from: yellowViewController, to: blueViewController)
+        }
+    }
+    private func switchViewController(from fromVC: UIViewController?, to toVC: UIViewController?) {
+        
+        // Does the starting view controller already exist?
+        // (A value of "nil" indicates that the switch is going from yellow to blue (yellow doesn't exist until the
+        // program switches to it, aka "lazy loading")
+        if fromVC != nil {
+            // Notify the view controller that it's being removed from its parent
+            fromVC!.willMoveToParentViewController(nil)
+            // Remove the view from the parent View
+            fromVC!.view.removeFromSuperview()
+            // Remove the view controller from the parent ViewController (SwitchViewController)
+            fromVC!.removeFromParentViewController()
+        }
+        
+        // Ensure that the result view controller always exists. It should, but this makes certain
+        if toVC != nil {
+            // Add the new ViewController as a child of "self", which is switchViewController
+            self.addChildViewController(toVC!)
+            // Add the new View at the back, to ensure it doesn't appear in front of the toolbar
+            self.view.insertSubview(toVC!.view, atIndex: 0)
+            // Mark that the new view controller is now a child of switchViewController
+            toVC!.didMoveToParentViewController(self)
+        }
         
     }
 
