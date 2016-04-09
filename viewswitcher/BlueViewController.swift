@@ -31,5 +31,11 @@ class BlueViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    @IBAction func blueButtonPressed(sender: UIButton) {
+        let alert = UIAlertController(title: "Blue View Button Pressed", message: "You pressed the button in the blue view", preferredStyle: .Alert)
+        let action = UIAlertAction(title: "Yes, I did.", style: .Default, handler: nil)
+        alert.addAction(action)
+        presentViewController(alert, animated: true, completion: nil)
+    }
 
 }
